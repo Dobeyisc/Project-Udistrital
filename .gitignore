@@ -1,0 +1,33 @@
+# Dependencias y módulos generados por Node.js
+node_modules/
+
+# Archivo de configuración de entorno
+.env
+
+# Archivos generados por TypeScript
+dist/
+
+# Archivos generados por TypeScript durante el desarrollo
+*.tsbuildinfo
+
+# Archivos generados por nodemon
+.nodemon/
+
+# Carpeta de archivos temporales de nodemon
+.tmp/
+
+# Carpeta de archivos generados por sequelize-cli
+migrations/
+seeders/
+
+# Carpeta de archivos de configuración de sequelize
+config/config.json
+
+# Archivo de registro de errores
+error.log
+
+# Otros archivos y carpetas generados durante el desarrollo
+*.log
+*.swp
+*.swo
+*.editorconfig
