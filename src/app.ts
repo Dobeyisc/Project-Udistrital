@@ -7,6 +7,8 @@ import dotenv from 'dotenv';
 import pacienteRoutes from './routes/paciente.routes'
 import doctorRoutes from './routes/doctor.paciente'
 import citaRoutes from './routes/citas.router'
+import especializacionRoutes  from './routes/especializacion.router';
+import consultorioRoutes from './routes/consultorio.router'
 dotenv.config();
 
 const app = express();
@@ -23,6 +25,8 @@ app.get('/', (req: Request, res: Response) => {
 app.use('/api/pacientes', pacienteRoutes);
 app.use('/api/doctores', doctorRoutes);
 app.use('/api/citas', citaRoutes);
+app.use('/api/especializacion', especializacionRoutes);
+app.use('/api/consultorio', consultorioRoutes)
 
 // Error de rutas
 app.use( (req: Request, res: Response) => {

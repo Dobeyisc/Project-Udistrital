@@ -38,12 +38,6 @@ export class Doctor extends Model {
   })
   telefono!: string
 
-  @Column({
-    type: DataType.ENUM('medicina_interna', 'medicina_general'),
-    allowNull: false,
-  })
-  especialidad!: string
-
   @HasMany( () => Cita)
   cita!: Cita []
 }
