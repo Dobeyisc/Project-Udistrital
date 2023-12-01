@@ -13,7 +13,7 @@ export const getCita: RequestHandler = async (req, res) => {
   } catch (error) {
     const err = error as Error
     res.status(500).json({
-      message: 'Error al obtener las citas',
+      message: 'Error al obtener las citas ',
       error: err.message
     })
   }
