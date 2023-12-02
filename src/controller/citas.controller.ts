@@ -1,140 +1,136 @@
 import { RequestHandler } from 'express';
 import { Cita } from '../models/cita.model'
-
+import { responseSuccess , errorResponseFailed, sendErrorServer } from '../error_message/messages';
 //RequestHandler trae los tipos, no se debe especificar tipos en req, y res
-export const getCita: RequestHandler = async (req, res) => {
-  try {
-    const citas = await Cita.findAll()
+export const getCitas: RequestHandler = async (req, res) => {
+  try{
 
-    res.status(200).json({
-      message: 'Operación exitosa',
-      data: citas
-    })
-  } catch (error) {
-    const err = error as Error
-    res.status(500).json({
-      message: 'Error al obtener las citas ',
-      error: err.message
-    })
+      const cita = await Cita.findAll();
+
+      if(cita){
+        responseSuccess(res,cita,200);
+      }else{
+        errorResponseFailed(res)
+      }
+
+
+  }catch(error){
+      const err = error as Error;
+      sendErrorServer(res,err)
   }
 }
 
 export const getOneCita: RequestHandler = async (req, res) => {
   try {
-    const { profesional, paciente, fecha } = req.query
-
+      const { profesional, paciente } = req.query; 
+      const cita = await Cita.findOne({ where: {  id_profesional: profesional, id_numeroCedula: paciente } });
+      if (cita) {
+        responseSuccess(res,cita,200);
+      } else {
+        errorResponseFailed(res)
+      }
+    } catch (error) {
+      const err = error as Error;
+      sendErrorServer(res,err);
+    }
+}
+export const getCitaByEspecialidad: RequestHandler = async (req,res) =>{
+  try{
+    const especialidad = req.params.id
     const cita = await Cita.findOne({
-      where: {
-        fecha_hora: fecha,
-        id_profesional: profesional,
-        id_numeroCedula: paciente
-    }
-    })
+      where:{id_especializacion: especialidad }
+    });
 
-    if (cita){
-      res.status(200).json({
-        message: 'Cita encontrada ✔️',
-        data: cita
-      })
-    } else {
-      res.status(404).json({
-        message: 'Cita no encontrada'
-      })
+    if(cita){
+      responseSuccess(res,cita,200);
+    }else{
+      errorResponseFailed(res)
     }
-
-  } catch (error:any) {
-    res.status(500).json({
-      message: 'Error al obtener las citas',
-      error: error.message
-    })
+  }catch(error){
+    const err = error as Error;
+    sendErrorServer(res,err)
   }
+
 }
 
-export const createCita: RequestHandler = async (req, res) => {
-  try {
-    const cita = await Cita.create(req.body)
+export const getCitaByPaciente: RequestHandler = async (req,res) => {
+try {
+  // const paciente = await Cita.findByPk(req.params.id)
+    const paciente = req.params.id
+    const cita = await Cita.findOne({
+      where:{id_numeroCedula: paciente }
+    });
 
-    res.status(201).json({
-      message: 'Cita creada! ✔️',
-      data: cita
-    })
-  } catch (error) {
-    const err = error as Error;
-    res.status(500).json({
-      message: 'No se pudo crear la cita',
-      error: err.message
-    })
+  if(cita){
+    responseSuccess(res,cita,200);
+  }else{
+    errorResponseFailed(res)
+  }
+} catch (error) {
+  const err = error as Error;
+  sendErrorServer(res,err)
+}
+}
+
+export const getCitaByDoctores: RequestHandler = async (req,res) => {
+try {
+  // const doctor = await Cita.findByPk(req.params.id)
+  const doctor = req.params.id
+  const cita = await Cita.findOne({
+    where:{id_profesional:doctor}
+  });
+  if(cita){
+    responseSuccess(res,cita,200);
+  }else{
+    errorResponseFailed(res)
+  }
+} catch (error) {
+  const err = error as Error;
+  sendErrorServer(res,err)
+}
+
+} 
+
+export const createCita: RequestHandler = async (req, res) => {
+  try{
+      const cita = await Cita.create(req.body);
+ 
+      responseSuccess(res,cita,201);
+
+  }catch(error){
+      const err = error as Error;
+      sendErrorServer(res,err)
   }
 }
 
 export const updateCita: RequestHandler = async (req, res) => {
   try {
-    const { profesional, paciente, fecha } = req.query
-
-    const cita = await Cita.findOne({
-      where: {
-        fecha_hora: fecha,
-        id_profesional: profesional,
-        id_numeroCedula: paciente
-    }
-    })
-
-    if (cita){
-      await Cita.update(req.body, {
-        where: {
-          fecha_hora: fecha,
-          id_profesional: profesional,
-          id_numeroCedula: paciente
+      const { profesional, paciente, fecha } = req.query; // Asume que los IDs se pasan como parámetros de consulta en la URL
+      const cita = await Cita.findOne({ where: { fecha_hora: fecha, id_profesional: profesional, id_numeroCedula: paciente } });
+      if (cita) {
+          await Cita.update(req.body,{ where: { fecha_hora: fecha, id_profesional: profesional, id_numeroCedula: paciente } });
+          responseSuccess(res,cita,200);
+      } else {
+        errorResponseFailed(res)
       }
-    })
-    res.status(200).json({
-      message: 'Cita actualizada'
-    })
-    } else {
-      res.status(404).json({
-        message: 'Cita no existe'
-      })
+    } catch (error) {
+      const err = error as Error;
+      sendErrorServer(res,err)
     }
-  } catch (error:any) {
-    res.status(500).json({
-      message: 'Error al modificar la cita',
-      error: error.message
-    })
-  }
 }
 
 export const deleteCita: RequestHandler = async (req, res) => {
   try {
-    const { profesional, paciente, fecha } = req.query
-
-    const cita = await Cita.findOne({
-      where: {
-        fecha_hora: fecha,
-        id_profesional: profesional,
-        id_numeroCedula: paciente
-    }
-    })
-
-    if (cita){
-      await Cita.destroy({
-        where: {
-          fecha_hora: fecha,
-          id_profesional: profesional,
-          id_numeroCedula: paciente
-        }
-      })
-      res.status(200).json({
-        message: 'Cita eliminada'
-      })
-    } else {
-      res.status(404).json({
-        message: 'Cita no existe'
-      })
-    }
-  } catch (error:any) {
-    res.status(500).json({
-      message: 'Error al eliminar la cita',
-      error: error.message
-    })
+      const { profesional, paciente, fecha } = req.query; // Asume que los IDs se pasan como parámetros de consulta en la URL
+      const cita = await Cita.findOne({ where: { fecha_hora: fecha, id_profesional: profesional, id_numeroCedula: paciente } });
+      if (cita) {
+          await Cita.destroy({ where: { fecha_hora: fecha, id_profesional: profesional, id_numeroCedula: paciente } });
+          responseSuccess(res,cita,200);
+      } else {
+        errorResponseFailed(res)
+      }
+    } catch (error) {
+      const err = error as Error;
+      sendErrorServer(res,err)
   }
 }

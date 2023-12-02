@@ -1,110 +1,92 @@
-import { RequestHandler } from 'express'
-import { Doctor } from '../models/doctores.model'
+import { RequestHandler } from "express";
+import { Doctor } from '../models/doctores.model';
+import { responseSuccess,errorResponseFailed,sendErrorServer } from '../error_message/messages';
+
+export const getDoctores: RequestHandler = async (req, res) => {
+    try{
+
+        const doctores = await Doctor.findAll();
+
+        if(doctores){
+            responseSuccess(res,doctores,200);
+        }else{
+            errorResponseFailed(res);
+        }
 
 
-//RequestHandler trae los tipos, no se debe especificar tipos en req, y res
-export const getDoctor: RequestHandler = async (req, res) => {
-  try {
-    const doctores = await Doctor.findAll()
-
-      res.status(200).json({
-        message: 'Operación exitosa',
-        data: doctores
-      })
-  } catch (error) {
-    const err = error as Error
-    res.status(500).json({
-      message: 'Error al obtener los doctores',
-      error: err.message
-    })
-  }
+    }catch(error){
+        const err = error as Error;
+        sendErrorServer(res,err)
+    }
 }
 
-export const getDoctorById: RequestHandler = async (req, res) => {
-  try {
-    const doctores = await Doctor.findByPk(req.params.id)
+export const getDoctoresById: RequestHandler = async (req, res) => {
+    try{
+        const doctor = await Doctor.findByPk(req.params.id);
+        if(doctor)
+        {
+            responseSuccess(res,doctor,200);
+        }else{
+            errorResponseFailed(res);
+        }
 
-    if(doctores) {
-      res.status(200).json({
-        message: 'Doctores encontrados ✔️',
-        data: doctores
-      })
-    } else {
-      res.status(404).json({
-        message: 'Doctores no encontrado ❌'
-      })
+    }catch(error){
+        const err = error as Error;
+        sendErrorServer(res,err)
     }
-  } catch (error:any) {
-    res.status(500).json({
-      message: 'Error al obtener los doctores',
-      error: error.message
-    })
-  }
 }
 
 export const createDoctor: RequestHandler = async (req, res) => {
-  try {
-    const doctores = await Doctor.create(req.body)
+    try{
+        const doctor = await Doctor.create(req.body);
+        responseSuccess(res,doctor,201)
 
-    res.status(201).json({
-      message: 'Doctor creado! ✔️',
-      data: doctores
-    })
-  } catch (error:any) {
-    res.status(500).json({
-      message: 'No se pudo crear el doctor'
-    })
-  }
+    }catch(error){
+        const err = error as Error;
+        sendErrorServer(res,err);
+    }
 }
 
 export const updateDoctor: RequestHandler = async (req, res) => {
-  try {
-    const doctores = await Doctor.findByPk(req.params.id)
-
-    if(doctores){
-      await Doctor.update(req.body, {
-        where: {
-          id_profesional: req.params.id
+    try{
+        const doctor = await Doctor.findByPk(req.params.id);
+        
+        if(doctor)
+        {
+            await Doctor.update(req.body,{
+                where:{
+                    id_profesional: req.params.id
+                }
+            });
+            responseSuccess(res,doctor,200);
+        }else{
+            errorResponseFailed(res);
         }
-      })
-      res.status(200).json({
-        message: 'Doctor actualizado ✔️'
-      })
-    } else {
-      res.status(404).json({
-        message: 'Doctor no existe'
-      })
+
+    }catch(error){
+        const err = error as Error;
+        sendErrorServer(res,err);
     }
-  } catch (error:any) {
-    res.status(500).json({
-      message: 'Doctor modificado ✔️',
-      error: error.message
-    })
-  }
 }
 
 export const deleteDoctor: RequestHandler = async (req, res) => {
-  try {
-    const doctores = await Doctor.findByPk(req.params.id)
-
-    if(doctores){
-      await Doctor.destroy({
-        where: {
-          id_profesional: req.params.id
+    try{
+        const doctor = await Doctor.findByPk(req.params.id);
+        
+        if(doctor)
+        {
+            await Doctor.destroy({
+                where: {
+                    id_profesional: req.params.id
+                }
+            });
+            responseSuccess(res,doctor,200);
+        }else{
+            errorResponseFailed(res);
         }
-      })
-      res.status(200).json({
-        message: 'Doctor eliminado ☠️'
-      })
-    } else {
-      res.status(404).json({
-        message: 'Doctor no existe'
-      })
+
+    }catch(error){
+        const err = error as Error;
+        sendErrorServer(res,err);
     }
-  } catch (error:any) {
-    res.status(500).json({
-      message: 'Doctor modificado ✔️',
-      error: error.message
-    })
-  }
 }

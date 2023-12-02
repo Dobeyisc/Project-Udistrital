@@ -5,7 +5,7 @@ import { urlencoded, json } from "body-parser";
 import cors from 'cors';
 import dotenv from 'dotenv';
 import pacienteRoutes from './routes/paciente.routes'
-import doctorRoutes from './routes/doctor.paciente'
+import doctorRoutes from './routes/doctor.router'
 import citaRoutes from './routes/citas.router'
 import especializacionRoutes  from './routes/especializacion.router';
 import consultorioRoutes from './routes/consultorio.router'
