@@ -182,4 +182,11 @@ Para consumir la API correctamente se debe tener en cuenta la siguiente estructu
 
 
 <hr>
-### PRUEBAS - API
+<h2>PRUEBAS - API</h2>
+
+
+
+![Texto alternativo](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExd201dW16MDkzcW5vaTcwd21uN2U4b2lzOHE1MmhkeXk1dm9rM2lvYyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/sHILILxU4Oe8kfhz9r/giphy.gif)
+
+
+
