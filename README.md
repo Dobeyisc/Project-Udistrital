@@ -183,7 +183,7 @@ Para consumir la API correctamente se debe tener en cuenta la siguiente estructu
 
 <hr>
 
-##PRUEBAS - API
+<h3>PRUEBAS - API</h3>
 
 *api/citas ${data}*
 
