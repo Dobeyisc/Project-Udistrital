@@ -182,11 +182,33 @@ Para consumir la API correctamente se debe tener en cuenta la siguiente estructu
 
 
 <hr>
-<h2>PRUEBAS - API</h2>
+
+##PRUEBAS - API
+
+*api/citas ${data}*
+
+![api/citas](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZGNmajYwNnhkdW5zNG5vc3Njd2cxZ2R0bTA3Nml0emhleTQzYms2NyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/irKTaZBzqcRc5RJ22w/giphy.gif)
+
+*api/doctores ${data}*
+
+![api/doctores](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNWl1cHk4aHRycmgydm95Y2JwdmMzdDRodXF0MGF3NHY5bG52cXg5OCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/UlDTBnTGP4P2hOURwR/giphy.gif)
+
+*api/pacientes ${data}*
+
+![api/pacientes](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMngycHA0NW1yemVoNmkzMXRiM2lidG50ZTgwN29weTdlcmw2dnZmZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/5gkMV9oBIx7c02xcbY/giphy.gif)
+
+*api/consultorio:id*
+
+![api/consultorio](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcXNxeGM1eHF1eGowOW5pcmZzMDMybHB5NDFzbXp0cGE1YWJ1Z2U0eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1R0Ek0YD2TX5IVX5RM/giphy.gif)
+
+*api/especializacion:id*
+
+![api/especializacion](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExd201dW16MDkzcW5vaTcwd21uN2U4b2lzOHE1MmhkeXk1dm9rM2lvYyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/sHILILxU4Oe8kfhz9r/giphy.gif)
 
 
 
-![Texto alternativo](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExd201dW16MDkzcW5vaTcwd21uN2U4b2lzOHE1MmhkeXk1dm9rM2lvYyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/sHILILxU4Oe8kfhz9r/giphy.gif)
+
+
 
 
 
